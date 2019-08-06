@@ -1,0 +1,17 @@
+What's new: 
+
+Created a system to enable multiple parties to collaborative train ML models, without explicitly sharing their own data. Tested on MNIST and SVHN. The distributed method achieve 99% and 90% accuracy of the centralized method while sharing 1% of parameters at each update. 
+
+The system:
+
+The system consist multiple parties, each having their own small dataset, and a server that can save a copy of all parameters of the model.
+
+1, Each party and the server agree on the model architecture, the loss function and some details (such as how to select the parameters whose gradients is to be uploaded.) 
+
+2, Each party, and the server initialize all parameters independently.
+
+3, A party can ask to a download and give the server a total number D of parameters needed. The server give the party the D most updated parameters. The party overwrites its own parameters with the downloaded ones.
+
+4, A party can train its own model on its own dataset for multiple steps, then compute the change of the parameters dw. It then upload a selected subset of dw, called dw_s, consisting of those with the largest change. Noise/differential privacy/caps can be added at this stage.
+
+5, The server receives dw_s and for the subset s, perform updates w_s += dw_s.

@@ -1,0 +1,9 @@
+This paper propose an attack to the collaborative deep learning frameworks where many parties train a common model by sharing gradients computed with their private data. Importantly, it assumes that the common model is a classifier with certain pre-determined labels. After training, it can generate instances similar to the data under a particular label that it does not own. 
+
+The proposal is that one party can fool others into acting as the critic in a GAN. Suppose the target class is A. The malicious party has a generator and a classifier. The classifier is trained by the collaborative learning system and has two classifiers, A and B, where B is seen as an innocent class by the bigger system. The generator is optimized for generating instances that will be classified as A. But these instances will be labeled B and used to train the classifier. 
+
+For other players, B will be difficult to distinguish from A so they will have to give more detailed information about the properties of A for the common model to classify it correctly. Thus they act as the critic.
+
+A security breach is the leaking of any information that the data owner has not agreed to share. In particular it is not limited to explicit data points but certain statistical properties about the data as well. For example from all pictures on someone's phone one can infer a realistic portrait of the person that is not exactly the same as any one of the existing pictures. 
+
+Even with this broad definition of a security breach, the method in this paper may not constitute an attack. In particular, it needs unique labeled data. Say we have 1000 phones participating in a collaborative training for a classifier that identifies rock climbing pictures. The method may not be a threat if, say, more than 10 users own significant fractions of rock climbing pictures. 
